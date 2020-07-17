@@ -1,0 +1,29 @@
+{% extends "layout.html" %} {% load static %} {% block style %}
+<link rel="stylesheet" href="{% static 'blog/main.css' %}" />
+{% endblock style %} {% block content %} {% for post in posts %}
+<div class="media">
+  <img
+    class="rounded-circle mr-3"
+    width="75"
+    height="75"
+    src="{{ post.author.profile.image.url }}"
+  />
+  <div class="media-body">
+    <div class="media-author">
+      <a href="#" class="h5 mr-2">{{ post.author|upper }}</a>
+      <small class="badge badge-primary"
+        >{{ post.date_posted| date:"F d, Y" }}</small
+      >
+      <br />
+    </div>
+    <div style="position: relative;">
+      <a href="#" class="h3 stretched-link mb-3">{{ post.title|upper }}</a>
+      <p>{{ post.content|truncatewords:100 }}</p>
+    </div>
+    {% if user.id == post.author.id %}
+    <a class="btn btn-outline-danger" href="Hello">Delete</a>
+    <a class="btn btn-outline-primary">Update</a>
+    {% endif %}
+  </div>
+</div>
+{% endfor %} {% endblock content %}
