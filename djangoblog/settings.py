@@ -129,11 +129,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-
-# AWS_ACCESS_KEY_ID = 'AKIA3X3NMFVKQS3KK2JA'
-# AWS_SECRET_ACCESS_KEY = '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'
-# AWS_STORAGE_BUCKET_NAME = 'django-blog-staticfiles'
-# AWS_S3_REGION_NAME = 'ap-south-1'
-# AWS_S3_SIGNATURE_VERSION = 's3v4'
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+if DEBUG:
+    AWS_ACCESS_KEY_ID = 'AKIA3X3NMFVKT3Y54E4I'
+    AWS_SECRET_ACCESS_KEY = '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'
+    AWS_STORAGE_BUCKET_NAME = 'django-blog-staticfiles'
+    AWS_S3_REGION_NAME = 'ap-south-1'
+    AWS_IS_GZIPPED = True
+    AWS_DEFAULT_ACL = None
+    DEFAULT_FILE_STORAGE = 'djangoblog.storage.MediaStorage'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
