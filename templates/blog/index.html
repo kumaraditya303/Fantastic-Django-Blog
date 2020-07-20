@@ -10,7 +10,9 @@
   />
   <div class="media-body">
     <div class="media-author">
-      <a href="#" class="h5 mr-2">{{ post.author|upper }}</a>
+      <a href="#" class="h5 author mr-2" id="{{ post.author.profile.id }}"
+        >{{ post.author|upper }}</a
+      >
       <small class="badge badge-primary"
         >{{ post.date_posted| date:"F d, Y" }}</small
       >
@@ -26,4 +28,17 @@
     {% endif %}
   </div>
 </div>
-{% endfor %} {% endblock content %}
+{% endfor %} {% endblock content %} {% block script %}
+<script src="{% static 'blog/js/home.js' %}"></script>
+<script>
+  $(document).ready(() => {
+    $(".author").hover(() => {
+      const id = $(this).prop("id");
+      console.log(id);
+      // console.log(`/author/${id}`);
+      // $.getJSON(`/author/${$(this).attr("id")}`);
+    });
+  });
+</script>
+
+{% endblock script %}
