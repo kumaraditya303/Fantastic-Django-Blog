@@ -9,11 +9,9 @@ from PIL import Image
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     description = models.TextField()
-    image = models.ImageField(
-        upload_to='profile', default='default.jpg')
+    image = models.ImageField(upload_to="profile", default="default.jpg")
 
     def __str__(self):
         return self.user.username
@@ -25,5 +23,5 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             buffer = BytesIO()
-            img.save(buffer, format='JPEG')
+            img.save(buffer, format="JPEG")
             default_storage.save(self.image.name, buffer)

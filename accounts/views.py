@@ -9,7 +9,8 @@ from accounts.models import Profile
 
 def author(request, author):
     author = serializers.serialize(
-        "json", [Profile.objects.filter(user=author).first()])
+        "json", [Profile.objects.filter(user=author).first()]
+    )
     return JsonResponse(author, safe=False)
 
 
@@ -19,7 +20,8 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(
-                request, f'Your account has been created successfully! You may login!')
+                request, f"Your account has been created successfully! You may login!"
+            )
             return redirect("index")
     form = UserRegistrationForm()
-    return render(request, 'accounts/register.html', {'form': form})
+    return render(request, "accounts/register.html", {"form": form})
