@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storages',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -109,9 +110,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-in'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -129,7 +130,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-if DEBUG:
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+if not DEBUG:
     AWS_ACCESS_KEY_ID = 'AKIA3X3NMFVKT3Y54E4I'
     AWS_SECRET_ACCESS_KEY = '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'
     AWS_STORAGE_BUCKET_NAME = 'django-blog-staticfiles'

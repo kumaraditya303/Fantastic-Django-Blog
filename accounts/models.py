@@ -11,7 +11,7 @@ from PIL import Image
 class Profile(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE)
-
+    description = models.TextField()
     image = models.ImageField(
         upload_to='profile', default='default.jpg')
 

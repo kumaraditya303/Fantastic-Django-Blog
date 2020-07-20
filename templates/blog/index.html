@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% load static %} {% block style %}
 <link rel="stylesheet" href="{% static 'blog/css/home.css' %}" />
 {% endblock style %} {% block content %} {% for post in posts %}
-<div class="media">
+<div class="media" id="{{ post.author.profile.id }}">
   <img
     class="rounded-circle mr-3"
     width="75"
@@ -30,15 +30,5 @@
 </div>
 {% endfor %} {% endblock content %} {% block script %}
 <script src="{% static 'blog/js/home.js' %}"></script>
-<script>
-  $(document).ready(() => {
-    $(".author").hover(() => {
-      const id = $(this).prop("id");
-      console.log(id);
-      // console.log(`/author/${id}`);
-      // $.getJSON(`/author/${$(this).attr("id")}`);
-    });
-  });
-</script>
 
 {% endblock script %}
