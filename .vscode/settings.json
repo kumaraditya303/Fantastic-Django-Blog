@@ -1,3 +1,6 @@
 {
-    "python.pythonPath": "C:\\Users\\Kumar Aditya\\.virtualenvs\\djangoblog-QuRxPHQY\\Scripts\\python.exe"
+    "python.pythonPath": "C:\\Users\\Kumar Aditya\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+    "python.linting.flake8Enabled": false,
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true
 }

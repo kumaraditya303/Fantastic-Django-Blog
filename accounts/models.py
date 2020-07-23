@@ -16,7 +16,7 @@ class Profile(models.Model):
         upload_to='profile', default='default.jpg')
 
     def __str__(self):
-        return self.user.username
+        return self.user
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
