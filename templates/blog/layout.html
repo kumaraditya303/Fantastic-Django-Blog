@@ -57,7 +57,7 @@
             <div class="container">
                 <!-- Navbar Brand -->
                 <div class="navbar-header d-flex align-items-center justify-content-between">
-                    <!-- Navbar Brand --><a href="index.html" class="navbar-brand">Django Blog</a>
+                    <!-- Navbar Brand --><a href="{% url 'index' %}" class="navbar-brand">Django Blog</a>
                     <!-- Toggle Button-->
                     <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
                         aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
@@ -66,9 +66,9 @@
                 <!-- Navbar Menu -->
                 <div id="navbarcollapse" class="collapse navbar-collapse">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a href="index.html" class="nav-link active ">Home</a>
+                        <li class="nav-item"><a href="{% url 'index' %}" class="nav-link active ">Home</a>
                         </li>
-                        <li class="nav-item"><a href="blog.html" class="nav-link ">Blog</a>
+                        <li class="nav-item"><a href="{% url 'post_list' %}" class="nav-link ">Blog</a>
                         </li>
                         <li class="nav-item"><a href="post.html" class="nav-link ">Post</a>
                         </li>

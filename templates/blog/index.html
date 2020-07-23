@@ -45,8 +45,8 @@
                 {% for category in post.category.all %}
                 <a href="#">{{ category }}</a>
                 {% endfor %}
-              </div><a href="">
-                <h2 class=" h4">{{ post.title }}</h2>
+              </div><a href="{{ post.get_absolute_url }}">
+                <h2 class="h4">{{ post.title }}</h2>
               </a>
             </header>
             <p>{{ post.overview|linebreaks|truncatewords:50 }}</p>

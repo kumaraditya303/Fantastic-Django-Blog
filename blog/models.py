@@ -23,7 +23,7 @@ class Category(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("category_detail", kwargs={"pk": self.pk})
+        return reverse("category_detail", kwargs={"id": self.pk})
 
 
 class Author(models.Model):
@@ -43,7 +43,7 @@ class Author(models.Model):
         return self.user.username
 
     def get_absolute_url(self):
-        return reverse("Author_detail", kwargs={"pk": self.pk})
+        return reverse("Author_detail", kwargs={"id": self.pk})
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -81,13 +81,13 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("post_detail", kwargs={"pk": self.pk})
+        return reverse("post_detail", kwargs={"id": self.pk})
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         img = Image.open(default_storage.open(self.thumbnail.name))
-        if img.height > 300 or img.width > 300:
-            output_size = (300, 300)
+        if img.height > 1080 or img.width > 1920:
+            output_size = (1920, 1080)
             img.thumbnail(output_size)
             buffer = BytesIO()
             img.save(buffer, format='JPEG')
@@ -122,4 +122,4 @@ class Comment(models.Model):
         return self.user.user.username
 
     def get_absolute_url(self):
-        return reverse("comment_detail", kwargs={"pk": self.pk})
+        return reverse("comment_detail", kwargs={"id": self.pk})
