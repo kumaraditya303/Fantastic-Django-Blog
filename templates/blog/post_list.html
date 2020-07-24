@@ -8,7 +8,7 @@
       <div class="container">
         <div class="row">
           <!-- post -->
-          {% for post in posts %}
+          {% for post in page_obj %}
           <div class="post col-xl-6">
             <div class="post-thumbnail"><a href="{{ post.get_absolute_url }}"><img src="{{ post.thumbnail.url }}"
                   alt="..." class="img-fluid"></a></div>
@@ -19,7 +19,7 @@
                   <a href="#">{{ category }}</a>
                   {% endfor %}
                 </div>
-              </div><a href="post.html">
+              </div><a href="{{ post.get_absolute_url }}">
                 <h3 class="h4">{{ post.title }}</h3>
               </a>
               <p class="text-muted">{{ post.overview|linebreaks|truncatewords:50 }}</p>
@@ -38,14 +38,15 @@
         <!-- Pagination -->
         <nav aria-label="Page navigation example">
           <ul class="pagination pagination-template d-flex justify-content-center">
-            {% if posts.has_previous %}
-            <li class="page-item"><a href="?page={{ posts.previous_page_number }}" class="page-link"> <i
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> <i
                   class="fa fa-angle-left"></i></a></li>
             {% endif %}
-            <li class="page-item"><a href="?page={{ posts.number }}" class="page-link active">{{ posts.number }}</a>
+            <li class="page-item"><a href="?page={{ page_obj.number }}"
+                class="page-link active">{{ page_obj.number }}</a>
             </li>
-            {% if posts.has_next %}
-            <li class="page-item"><a href="?page={{ posts.next_page_number }}" class="page-link"> <i
+            {% if page_obj.has_next %}
+            <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link"> <i
                   class="fa fa-angle-right"></i></a></li>
             {% endif %}
           </ul>
@@ -59,9 +60,9 @@
         <header>
           <h3 class="h6">Search the blog</h3>
         </header>
-        <form action="#" class="search-form">
+        <form action="{% url 'search' %}" class="search-form">
           <div class="form-group">
-            <input type="search" placeholder="What are you looking for?">
+            <input type="search" placeholder="What are you looking for?" name="q">
             <button type="submit" class="submit"><i class="icon-search"></i></button>
           </div>
         </form>

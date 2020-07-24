@@ -23,7 +23,7 @@ class Category(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("category_detail", kwargs={"id": self.pk})
+        return reverse("category_detail", kwargs={"pk": self.pk})
 
 
 class Author(models.Model):
@@ -43,7 +43,7 @@ class Author(models.Model):
         return self.user.username
 
     def get_absolute_url(self):
-        return reverse("Author_detail", kwargs={"id": self.pk})
+        return reverse("Author_detail", kwargs={"pk": self.pk})
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -81,7 +81,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("post_detail", kwargs={"id": self.pk})
+        return reverse("post_detail", kwargs={"pk": self.pk})
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -122,4 +122,22 @@ class Comment(models.Model):
         return self.user.user.username
 
     def get_absolute_url(self):
-        return reverse("comment_detail", kwargs={"id": self.pk})
+        return reverse("comment_detail", kwargs={"pk": self.pk})
+
+
+class Newsletter(models.Model):
+    """
+    Newsletter Model
+    """
+    email = models.EmailField(_("Email"), max_length=254)
+    timestamp = models.DateTimeField(_("Timestamp"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("newsletter")
+        verbose_name_plural = _("newsletters")
+
+    def __str__(self):
+        return self.email
+
+    def get_absolute_url(self):
+        return reverse("newsletter_detail", kwargs={"pk": self.pk})

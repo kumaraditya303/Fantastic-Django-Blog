@@ -2,5 +2,6 @@
     "python.pythonPath": "C:\\Users\\Kumar Aditya\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
-    "python.linting.pylintEnabled": false
+    "python.linting.pylintEnabled": false,
+    "python.analysis.cachingLevel": "System"
 }
