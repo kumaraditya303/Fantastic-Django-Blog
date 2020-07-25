@@ -40,7 +40,7 @@ class Author(models.Model):
         verbose_name_plural = _("Authors")
 
     def __str__(self):
-        return self.user.username
+        return self.user.get_full_name()
 
     def get_absolute_url(self):
         return reverse("Author_detail", kwargs={"pk": self.pk})
@@ -67,7 +67,8 @@ class Post(models.Model):
 
     content = HTMLField()
     featured = models.BooleanField(_("Featured"), default=False)
-    category = models.ManyToManyField(Category, verbose_name=_("Category"))
+    category = models.ManyToManyField(
+        Category, verbose_name=_("Category"), related_name='post')
     author = models.ForeignKey(Author, verbose_name=_(
         "Author"), on_delete=models.CASCADE)
     thumbnail = models.ImageField(
@@ -93,14 +94,6 @@ class Post(models.Model):
             img.save(buffer, format='JPEG')
             default_storage.save(self.thumbnail.name, buffer)
 
-    @property
-    def comments_count(self):
-        return Comment.objects.filter(post=self).count()
-
-    @property
-    def get_comments(self):
-        return Comment.objects.filter(post=self).all().order_by('-timestamp')
-
 
 class Comment(models.Model):
     """
@@ -112,7 +105,7 @@ class Comment(models.Model):
         _("Timestamp"), auto_now=True)
     content = models.TextField(_("Content"))
     post = models.ForeignKey(Post, verbose_name=_(
-        "post"), on_delete=models.CASCADE)
+        "post"), on_delete=models.CASCADE, related_name='comment')
 
     class Meta:
         verbose_name = _("comment")

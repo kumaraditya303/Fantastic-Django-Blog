@@ -29,7 +29,7 @@
                   <div class="title"><span>{{ post.author }}</span></div>
                 </a>
                 <div class="date"><i class="icon-clock"></i>{{ post.timestamp|timesince }}</div>
-                <div class="comments meta-last"><i class="icon-comment"></i>{{ post.comments_count }}</div>
+                <div class="comments meta-last"><i class="icon-comment"></i>{{ post.comment.count }}</div>
               </footer>
             </div>
           </div>
@@ -80,7 +80,7 @@
               <div class="title"><strong>{{ post.title }}</strong>
                 <div class="d-flex align-items-center">
                   <div class="views"><i class="icon-eye"></i> 500</div>
-                  <div class="comments"><i class="icon-comment"></i>{{ post.comments_count }}</div>
+                  <div class="comments"><i class="icon-comment"></i>{{ post.comment.count }}</div>
                 </div>
               </div>
             </div>
@@ -92,9 +92,9 @@
           <header>
             <h3 class="h6">Categories</h3>
           </header>
-          {% for cat in category_count %}
+          {% for category in categories %}
           <div class="item d-flex justify-content-between">
-            <a href="#">{{ cat.category__title }}</a><span>{{ cat.category__count }}</span>
+            <a href="#">{{ category }}</a><span>{{ category.post.count }}</span>
           </div>
           {% endfor %}
         </div>

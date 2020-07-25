@@ -1,5 +1,5 @@
 {% extends './layout.html' %}
-{% load static i18n %}
+{% load  static i18n crispy_forms_tags %}
 {% block content %}
 <div class="container">
   <div class="row">
@@ -26,7 +26,7 @@
               <div class="d-flex align-items-center flex-wrap">
                 <div class="date"><i class="icon-clock"></i>{{ post.timestamp|timesince }}</div>
                 <div class="views"><i class="icon-eye"></i> 500</div>
-                <div class="comments meta-last"><i class="icon-comment"></i>{{ post.comments_count }}</div>
+                <div class="comments meta-last"><i class="icon-comment"></i>{{ post.comment.count }}</div>
               </div>
             </div>
 
@@ -36,9 +36,9 @@
 
             <div class="post-comments">
               <header>
-                <h3 class="h6">Post Comments<span class="no-of-comments">( {{post.comments_count}} )</span></h3>
+                <h3 class="h6">Post Comments<span class="no-of-comments">( {{post.comment.count}} )</span></h3>
               </header>
-              {% for comment in post.get_comments %}
+              {% for comment in post.comment.all %}
               <div class="comment">
                 <div class="comment-header d-flex justify-content-between">
                   <div class="user d-flex align-items-center">
@@ -57,25 +57,17 @@
                 <header>
                   <h3 class="h6">Leave a comment</h3>
                 </header>
-                <form action="#" class="commenting-form">
-                  <div class="row">
-                    <div class="form-group col-md-6">
-                      <input type="text" name="username" id="username" placeholder="Name" class="form-control"
-                        value="{{request.user}}">
-                    </div>
-                    <div class="form-group col-md-6">
-                      <input type="email" name="username" id="useremail"
-                        placeholder="Email Address (will not be published)" class="form-control">
-                    </div>
-                    <div class="form-group col-md-12">
-                      <textarea name="usercomment" id="usercomment" placeholder="Type your comment"
-                        class="form-control"></textarea>
-                    </div>
-                    <div class="form-group col-md-12">
-                      <button type="submit" class="btn btn-secondary">Submit Comment</button>
-                    </div>
+                {% if user.is_authenticated %}
+                <form action="{% url 'post_detail' post.pk %}" method="POST" class="commenting-form">
+                  {% csrf_token %}
+                  {{ comment_form|crispy }}
+                  <div class="form-group col-md-12">
+                    <button type="submit" class="btn btn-outline-secondary">Submit Comment</button>
                   </div>
                 </form>
+                {% else %}
+                <a href="/admin/login?next={{ post.get_absolute_url }}">Login</a>
+                {% endif %}
               </div>
             </div>
           </div>
@@ -107,7 +99,7 @@
               <div class="title"><strong>{{ post.title }}</strong>
                 <div class="d-flex align-items-center">
                   <div class="views"><i class="icon-eye"></i> 500</div>
-                  <div class="comments"><i class="icon-comment"></i>{{ post.comments_count }}</div>
+                  <div class="comments"><i class="icon-comment"></i>{{ post.comment.count }}</div>
                 </div>
               </div>
             </div>
@@ -119,9 +111,9 @@
         <header>
           <h3 class="h6">Categories</h3>
         </header>
-        {% for cat in category_count %}
+        {% for category in categories %}
         <div class="item d-flex justify-content-between">
-          <a href="#">{{ cat.category__title }}</a><span>{{ cat.category__count }}</span>
+          <a href="#">{{ category }}</a><span>{{ category.post.count }}</span>
         </div>
         {% endfor %}
       </div>

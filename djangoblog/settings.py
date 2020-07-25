@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'storages',
     'tinymce',
+    'crispy_forms'
 
 ]
 
@@ -129,6 +130,7 @@ TINYMCE_DEFAULT_CONFIG = {
     'menubar': True,
     'statusbar': True,
 }
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Internationalization
@@ -154,6 +156,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+LOGIN_URL = '/admin/login/'
 
 if not DEBUG:
     AWS_ACCESS_KEY_ID = 'AKIA3X3NMFVKT3Y54E4I'

@@ -1,9 +1,11 @@
 from django.contrib import messages
 from django.db.models import Count, Q
-from django.shortcuts import redirect, render
-from django.views.generic import DetailView, ListView, View
+from django.shortcuts import redirect, render, reverse
+from django.views.generic import DetailView, ListView, View, CreateView, UpdateView, DeleteView
 
-from blog.models import Newsletter, Post
+from blog.models import Newsletter, Post, Author, Category
+from blog.forms import PostForm, CommentForm
+from django.urls import reverse_lazy
 
 
 class IndexView(View):
@@ -43,15 +45,24 @@ class PostDetailView(DetailView):
 
     model = Post
     template_name = "blog/post_detail.html"
+    _comment_form = CommentForm()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["latest_posts"] = Post.objects.all().order_by(
             '-timestamp')[0:3]
-        context["category_count"] = Post.objects.values(
-            'category__title') \
-            .annotate(category__count=Count('category__title'))
+        context["categories"] = Category.objects.all()
+        context["comment_form"] = self._comment_form
         return context
+
+    def post(self, request, *args, **kwargs):
+        _post = self.get_object()
+        _comment_form = CommentForm(request.POST)
+        if _comment_form.is_valid():
+            _comment_form.instance.user = request.user.author
+            _comment_form.instance.post = _post
+            _comment_form.save()
+            return redirect(_post)
 
 
 class PostListView(ListView):
@@ -71,9 +82,7 @@ class PostListView(ListView):
         context = super().get_context_data(**kwargs)
         context["latest_posts"] = Post.objects.all().order_by(
             '-timestamp')[0:3]
-        context["category_count"] = Post.objects.values(
-            'category__title') \
-            .annotate(category__count=Count('category__title'))
+        context["categories"] = Category.objects.all()
         return context
 
 
@@ -86,3 +95,33 @@ class SearchView(View):
             "search_result": search_result
         }
         return render(request, 'blog/search.html', context=context)
+
+
+class PostCreateView(CreateView):
+    model = Post
+    template_name = "blog/post_create.html"
+    form_class = PostForm
+
+    def form_valid(self, form):
+        form.instance.author = Author.objects.filter(
+            user=self.request.user).first()
+        form.save()
+        return redirect(reverse('post_detail', kwargs={'pk': form.instance.pk}))
+
+
+class PostUpdateView(UpdateView):
+    model = Post
+    template_name = "blog/post_update.html"
+    form_class = PostForm
+
+    def form_valid(self, form):
+        form.instance.author = Author.objects.filter(
+            user=self.request.user).first()
+        form.save()
+        return redirect(reverse('post_detail', kwargs={'pk': form.instance.pk}))
+
+
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = "blog/post_delete.html"
+    success_url = reverse_lazy('index')

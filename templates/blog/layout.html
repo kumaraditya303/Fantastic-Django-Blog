@@ -69,10 +69,15 @@
                         </li>
                         <li class="nav-item"><a href="{% url 'post_list' %}" class="nav-link ">Blog</a>
                         </li>
-                        <li class="nav-item"><a href="#" class="nav-link ">Post</a>
+                        <li class="nav-item"><a href="{% url 'post_create' %}" class="nav-link ">Create Post </a>
                         </li>
-                        <li class="nav-item"><a href="#" class="nav-link ">Contact</a>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a href="#" class="nav-link ">Logout</a>
                         </li>
+                        {% else %}
+                        <li class="nav-item"><a href="#" class="nav-link ">Login / SignUp</a>
+                        </li>
+                        {% endif %}
                     </ul>
                     <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
                 </div>
@@ -139,6 +144,7 @@
     <script src="{% static 'blog/vendor/jquery.cookie/jquery.cookie.js' %}"> </script>
     <script src="{% static 'blog/vendor/@fancyapps/fancybox/jquery.fancybox.min.js' %}"></script>
     <script src="{% static 'blog/js/front.js' %}"></script>
+    {% block javascript %}{% endblock javascript %}
 </body>
 
 </html>
