@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from blog.models import Author, Category, Comment, Post
+from blog.models import Category, Comment, Post
 
 # Register your models here.
 

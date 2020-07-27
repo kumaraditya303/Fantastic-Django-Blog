@@ -1,9 +1,7 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from tinymce.widgets import TinyMCE
 
-from blog.models import Author, Comment, Post
+from blog.models import Comment, Post
 
 
 class PostForm(forms.ModelForm):

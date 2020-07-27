@@ -1,6 +1,5 @@
 from io import BytesIO
 
-from django.contrib.auth.models import User
 from django.core.files.storage import default_storage
 from django.db import models
 from django.shortcuts import reverse
