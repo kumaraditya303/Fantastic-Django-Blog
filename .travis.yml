@@ -1,0 +1,15 @@
+language: python
+os: linux
+dist: focal
+services:
+  - docker
+python:
+  - "3.7"
+  - "3.8"
+
+cache:
+  - pip
+
+script:
+  - docker-compose build
+  - docker-compose run web python manage.py test

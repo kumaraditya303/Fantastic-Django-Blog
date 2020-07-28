@@ -1,0 +1,48 @@
+version: "3.4"
+
+services:
+  web:
+    image: fantastic-django-blog
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    restart: always
+    depends_on:
+      - db
+      - adminer
+      - celery
+    environment:
+      SQL_ENGINE: django.db.backends.postgresql
+      SQL_DATABASE: data
+      SQL_USER: postgres
+      SQL_PASSWORD: postgres
+      SQL_HOST: db
+      SQL_PORT: 5432
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: data
+    restart: always
+
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  redis:
+    image: redis:latest
+    restart: always
+
+  celery:
+    image: fantastic-django-blog
+    command: celery -A djangoblog worker -B -l info
+    restart: always
+    depends_on:
+      - redis
