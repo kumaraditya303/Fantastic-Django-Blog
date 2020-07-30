@@ -58,7 +58,7 @@
                   <h3 class="h6">Leave a comment</h3>
                 </header>
                 {% if user.is_authenticated %}
-                <form action="{% url 'post_detail' post.pk %}" method="POST" class="commenting-form">
+                <form action="{% url 'post_detail' post.slug %}" method="POST" class="commenting-form">
                   {% csrf_token %}
                   {{ comment_form|crispy }}
                   <div class="form-group col-md-12">

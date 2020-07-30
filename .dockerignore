@@ -22,4 +22,7 @@
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
+**/*.db*
+**/*.sqlite3*
+db.sqlite3
 README.md

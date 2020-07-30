@@ -11,15 +11,13 @@ services:
     restart: always
     depends_on:
       - db
-      - adminer
-      - celery
+    volumes:
+      - /app
     environment:
-      SQL_ENGINE: django.db.backends.postgresql
-      SQL_DATABASE: data
-      SQL_USER: postgres
-      SQL_PASSWORD: postgres
-      SQL_HOST: db
-      SQL_PORT: 5432
+      DJANGO_SUPERUSER_USERNAME: appuser
+      DJANGO_SUPERUSER_PASSWORD: test
+      DJANGO_SUPERUSER_EMAIL: test@test.com
+
   db:
     image: postgres:latest
     environment:
@@ -27,22 +25,30 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: data
     restart: always
-
-  adminer:
-    image: adminer:latest
-    restart: always
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
-
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
   redis:
     image: redis:latest
     restart: always
 
   celery:
-    image: fantastic-django-blog
-    command: celery -A djangoblog worker -B -l info
+    build: .
+    command: celery -A djangoblog worker  -l info
     restart: always
     depends_on:
       - redis
+      - web
+    volumes:
+      - /app
+  celery-beat:
+    build: .
+    command: celery -A djangoblog beat -l info
+    restart: always
+    depends_on:
+      - redis
+      - web
+    volumes:
+      - /app
+
+volumes:
+  db-data:

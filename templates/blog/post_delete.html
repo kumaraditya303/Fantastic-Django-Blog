@@ -6,7 +6,7 @@
         <main class="post blog-post col-lg-8">
             <div class="container">
                 <p>Are you sure you want to delete post "{{ object }}"?</p>
-                <form method="post" action="{% url 'post_delete' post.pk %}">
+                <form method="post" action="{% url 'post_delete' post.slug %}">
                     {% csrf_token %}
                     <input type="submit" class="btn btn-outline-secondary" value="Confirm">
                 </form>

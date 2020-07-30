@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sitemaps',
     'storages',
     'tinymce',
     'crispy_forms',
@@ -86,12 +85,12 @@ WSGI_APPLICATION = 'djangoblog.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, "db.sqlite3")),
-        "USER": os.environ.get("SQL_USER", "user"),
-        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
-        "HOST": os.environ.get("SQL_HOST", "localhost"),
-        "PORT": os.environ.get("SQL_PORT", "5432"),
+        "ENGINE":  'django.db.backends.postgresql',
+        "NAME": 'data',
+        "USER": 'postgres',
+        "PASSWORD": 'postgres',
+        "HOST": 'db',
+        "PORT": "5432"
     }
 }
 
@@ -172,8 +171,9 @@ CELERY_TIMEZONE = 'Asia/Kolkata'
 
 
 CELERY_BEAT_SCHEDULE = {
-    "sample_task": {
-        "task": "accounts.tasks.send_email",
+    "newsletter_task": {
+        "task": "accounts.tasks.send_newsletter",
+        # minute="0", hour="10", day_of_week="*"),
         "schedule": crontab(minute="*"),
     },
 }
@@ -186,12 +186,12 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'messmgmtsystem@gmail.com'
 EMAIL_HOST_PASSWORD = 'pythonflask'
 
-if not DEBUG:
-    AWS_ACCESS_KEY_ID = 'AKIA3X3NMFVKT3Y54E4I'
-    AWS_SECRET_ACCESS_KEY = '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'
-    AWS_STORAGE_BUCKET_NAME = 'django-blog-staticfiles'
-    AWS_S3_REGION_NAME = 'ap-south-1'
-    AWS_IS_GZIPPED = True
-    AWS_DEFAULT_ACL = None
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = 'AKIA3X3NMFVKT3Y54E4I'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'django-blog-staticfiles'
+AWS_S3_REGION_NAME = 'ap-south-1'
+AWS_IS_GZIPPED = True
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
