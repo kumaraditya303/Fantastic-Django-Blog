@@ -44,7 +44,7 @@ class Post(models.Model):
         "Author"), on_delete=models.CASCADE)
     thumbnail = models.ImageField(
         _("Thumbnail"), upload_to='posts_thumbnail', default='thumbnail.jpg')
-    slug = models.SlugField(_("Slug"), default="")
+    slug = models.SlugField(_("Slug"), blank=True, null=True)
 
     class Meta:
         verbose_name = _("Post")

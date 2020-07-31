@@ -108,7 +108,7 @@ class PostCreateView(CreateView):
         form.instance.author = Author.objects.filter(
             user=self.request.user).first()
         form.save()
-        return redirect(reverse('post_detail', kwargs={'pk': form.instance.pk}))
+        return redirect(reverse('post_detail', kwargs={'slug': form.instance.slug}))
 
 
 class PostUpdateView(UpdateView):

@@ -8,11 +8,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
-    restart: always
+    volumes:
+      - .:/app
     depends_on:
       - db
-    volumes:
-      - /app
     environment:
       DJANGO_SUPERUSER_USERNAME: appuser
       DJANGO_SUPERUSER_PASSWORD: test
@@ -24,31 +23,21 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: data
-    restart: always
-    volumes:
-      - "db-data:/var/lib/postgresql/data"
+
   redis:
     image: redis:latest
     restart: always
 
   celery:
-    build: .
-    command: celery -A djangoblog worker  -l info
+    image: fantastic-django-blog
+    command: celery -A djangoblog worker -l info
     restart: always
     depends_on:
       - redis
-      - web
-    volumes:
-      - /app
+
   celery-beat:
-    build: .
+    image: fantastic-django-blog
     command: celery -A djangoblog beat -l info
     restart: always
     depends_on:
       - redis
-      - web
-    volumes:
-      - /app
-
-volumes:
-  db-data:
