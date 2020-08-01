@@ -10,6 +10,7 @@
 * [Technologies](#technologies)
 * [Features](#features)
 * [Setup](#setup)
+* [Demo](#demo)
 * [Support & Updated](#support-and-updates)
 * [LICENSE](#license)
 
@@ -40,6 +41,11 @@
 $ docker-compose up --build
 ```
 * Goto http://localhost:8000/ and have fun!
+
+
+## Demo
+![Demoimg](demo.gif)
+
 
 ## Support And Updates
 > ### [Pull requests](https://github.com/kumaraditya303/Fantastic-Django-Blog/pulls) 🙌 are always welcome!
