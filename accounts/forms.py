@@ -13,9 +13,21 @@ class AuthorForm(forms.ModelForm):
         fields = ('picture',)
 
 
-class UserRegistrationForm(UserCreationForm):
+class UserForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'first_name', 'last_name',
+                  'email', 'password1', 'password2')
+
+
+class UserUpdateForm(forms.ModelForm):
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name')

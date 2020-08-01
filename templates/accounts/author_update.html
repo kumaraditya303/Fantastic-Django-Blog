@@ -3,14 +3,15 @@
 {% block content %}
 <div class="col-6 offset-3">
     <div class="container jumbotron">
-        <div class="image text-center"><img src="{{ request.user.author.picture.url }}" alt="..."
-                class="img-fluid rounded-circle">
+        <div class="image text-center"><img src="{{ request.user.author.picture.url }}" alt="..." class="img-fluid"
+                width="250px" height="250px">
         </div>
         <hr>
         <h1 class="text-center">{{ request.user|upper }}</h1>
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{form|crispy}}
+            {{user_form|crispy}}
+            {{author_form|crispy}}
             <input type="submit" class="btn btn-block btn-primary" value="Update Profile">
         </form>
     </div>

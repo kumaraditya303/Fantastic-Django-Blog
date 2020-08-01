@@ -4,6 +4,6 @@ from accounts import views
 urlpatterns = [
     path('accounts/register/', views.AuthorCreateView.as_view(),
          name='accounts_register'),
-    path("accounts/update/<pk>",
+    path("accounts/update/",
          login_required(views.AuthorUpdateView.as_view()), name="accounts_update")
 ]

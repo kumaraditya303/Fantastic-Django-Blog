@@ -12,10 +12,8 @@ services:
       - .:/app
     depends_on:
       - db
-    environment:
-      DJANGO_SUPERUSER_USERNAME: appuser
-      DJANGO_SUPERUSER_PASSWORD: test
-      DJANGO_SUPERUSER_EMAIL: test@test.com
+    env_file: .env
+
 
   db:
     image: postgres:latest
@@ -34,6 +32,7 @@ services:
     restart: always
     depends_on:
       - redis
+    env_file: .env
 
   celery-beat:
     image: fantastic-django-blog
@@ -41,3 +40,4 @@ services:
     restart: always
     depends_on:
       - redis
+    env_file: .env

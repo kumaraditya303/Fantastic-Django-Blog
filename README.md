@@ -28,7 +28,9 @@
 
 ## Features
 > Core features of this project!
-* Posts with support for uploading thubmnail images! & support for TinyMCE rich text editor!
+* Posts with support for uploading thumbnail images! & support for TinyMCE rich text editor!
+* Support for paginations!
+* Category wise pagination!
 * Categories with support of sorting them!
 * Support of storing static & media files on [AWS S3 bucket](https://aws.amazon.com/s3/)! 
 * Newsletter for the subscribers!
