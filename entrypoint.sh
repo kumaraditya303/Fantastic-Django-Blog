@@ -1,16 +1,11 @@
-#!/bin/sh
-
-if [ "$SQL_DATABASE" = "data" ];
-then
-    echo "PostgreSQL started"
-    echo "Applying migrations to database"
-    python manage.py migrate --no-input
-    echo "Finished database migrations "
-fi
-
+#!/bin/sh -e
+echo "Applying migrations..."
+python manage.py makemigrations --noinput
+python manage.py migrate --noinput
 echo "Collecting static files..."
-python manage.py collectstatic --no-input
-echo "Finished collecting static files!"
+python manage.py collectstatic --noinput
+echo "Creating superuser account..."
+python manage.py createsuperuser --noinput
 echo "Starting server..."
-gunicorn --bind 0.0.0.0:8000 djangoblog.wsgi 
-echo "$@"
+python manage.py runserver 0.0.0.0:8000
+exec "$@"

@@ -6,7 +6,7 @@ from django.shortcuts import reverse
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
 from tinymce.models import HTMLField
-
+from django.utils.text import slugify
 from accounts.models import Author
 
 
@@ -44,6 +44,7 @@ class Post(models.Model):
         "Author"), on_delete=models.CASCADE)
     thumbnail = models.ImageField(
         _("Thumbnail"), upload_to='posts_thumbnail', default='thumbnail.jpg')
+    slug = models.SlugField(_("Slug"), blank=True, null=True)
 
     class Meta:
         verbose_name = _("Post")
@@ -54,17 +55,18 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         """Absolute URL for Post"""
-        return reverse("post_detail", kwargs={"pk": self.pk})
+        return reverse("post_detail", kwargs={"slug": self.slug})
 
     def get_update_url(self):
         """Update URL for Post"""
-        return reverse("post_update", kwargs={"pk": self.pk})
+        return reverse("post_update", kwargs={"slug": self.slug})
 
     def get_delete_url(self):
         """Delete URL for Post"""
-        return reverse("post_delete", kwargs={"pk": self.pk})
+        return reverse("post_delete", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
         super().save(*args, **kwargs)
         img = Image.open(default_storage.open(self.thumbnail.name))
         if img.height > 1080 or img.width > 1920:

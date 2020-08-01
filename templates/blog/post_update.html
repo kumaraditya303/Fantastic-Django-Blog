@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container jumbotron">
     <h4 class="h2 col-4 offset-4">Update Post</h4>
-    <form action="{% url 'post_update' post.pk %}" method="post" enctype="multipart/form-data">
+    <form action="{% url 'post_update' post.slug %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{form|crispy }}
         <input type="submit" class="btn btn-outline-primary" value="Update Post">
