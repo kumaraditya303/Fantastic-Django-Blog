@@ -26,3 +26,6 @@
 **/*.sqlite3*
 db.sqlite3
 README.md
+**/*.gif
+**/.github/**
+**/.vscode/**
