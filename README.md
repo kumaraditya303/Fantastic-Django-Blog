@@ -38,10 +38,16 @@
 
 ## Setup
 > Setup & installation instructions!
+* Provide the credentials in .env.example and rename it to .env
 * Start the project with docker compose!
 ```
 $ docker-compose up --build
 ```
+* Start the project locally!
+```sh
+$ ./run.sh 
+```
+
 * Goto http://localhost:8000/ and have fun!
 
 
