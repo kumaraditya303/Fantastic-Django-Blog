@@ -1,0 +1,17 @@
+{% extends './layout.html' %}
+{% load static i18n crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <main class="post blog-post col-lg-8">
+            <div class="container">
+                <p>Are you sure you want to delete post "{{ object }}"?</p>
+                <form method="post" action="{% url 'post_delete' post.slug %}">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-outline-secondary" value="Confirm">
+                </form>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock content %}

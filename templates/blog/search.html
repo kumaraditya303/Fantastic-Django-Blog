@@ -1,0 +1,35 @@
+{% extends './layout.html' %}
+{% load static i18n %}
+{% block content %}
+<section class="latest-posts">
+    <div class="container">
+        <header>
+            <h2 id="search-result">Search results are ...</h2>
+        </header>
+        <div class="row">
+            {% for post in search_result %}
+            <div class="post col-md-4">
+                <div class="post-thumbnail"><a href="{{ post.get_absolute_url }}"><img src="{{ post.thumbnail.url }}"
+                            class="img-fluid"></a>
+                </div>
+                <div class="post-details">
+                    <div class="post-meta d-flex justify-content-between">
+                        <div class="date">{{ post.timestamp }}</div>
+                        <div class="category">{% for category in post.category.all %}
+                            <a href="#">{{ category }}</a>
+                            {% endfor %}</div>
+                    </div><a href="{{ post.get_absolute_url }}">
+                        <h3 class="h4" id="post-title" >{{ post.title }}</h3>
+                    </a>
+                    <p class="text-muted">{{ post.overview|linebreaks|truncatewords:50 }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <header>
+                <h2>No results found ...</h2>
+            </header>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock content %}
