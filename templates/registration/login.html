@@ -1,0 +1,19 @@
+{% extends '../blog/layout.html' %}
+{% load static i18n crispy_forms_tags %}
+{% block content %}
+<div class="login-form">
+    <div class="jumbotron">
+        <h1 class="text-center">Login</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{form|crispy}}
+            <input type="submit" class="btn btn-block btn-primary" value="Login">
+        </form>
+        <div class="pt-5">
+            <span>Don't have an account? <a href="{% url 'accounts_register' %}">Register</a></span>
+            <br>
+            <span>Forgot password? <a href="{% url 'password_reset' %}">Reset</a></span>
+        </div>
+    </div>
+</div>
+{% endblock %}

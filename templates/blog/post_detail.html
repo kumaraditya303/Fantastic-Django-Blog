@@ -1,0 +1,133 @@
+{% extends './layout.html' %}
+{% load  static i18n crispy_forms_tags %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <!-- Latest Posts -->
+    <main class="post blog-post col-lg-8">
+      <div class="container">
+        <div class="post-single">
+          <div class="post-thumbnail"><img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid"></div>
+          <div class="post-details">
+            <div class="post-meta d-flex justify-content-between">
+
+              <div class="category">
+                {% for category in post.category.all %}
+                <a href="#">{{ category.title }}</a>
+                {% endfor %}
+              </div>
+            </div>
+            <h1 id="post-title" >{{ post.title }}<a href="#"><i class="fa fa-bookmark-o"></i></a>
+
+            </h1>
+            <div class="post-footer d-flex align-items-center flex-column flex-sm-row"><a href="#"
+                class="author d-flex align-items-center flex-wrap">
+                <div class="avatar"><img src="{{ post.author.picture.url }}" alt="..." class="img-fluid"></div>
+                <div class="title"><span>{{ post.author }}</span></div>
+              </a>
+              <div class="d-flex align-items-center flex-wrap">
+                <div class="date"><i class="icon-clock"></i>{{ post.timestamp|timesince }}</div>
+                <div class="views"><i class="icon-eye"></i> 500</div>
+                <div class="comments meta-last"><i class="icon-comment"></i>{{ post.comment.count }}</div>
+              </div>
+              {% if request.user.author == post.author %}
+              <div class="ml-5 d-flex flex-end">
+                <a href="{{ post.get_update_url }}" class="btn btn-secondary">Update</a>
+                <a href="{{ post.get_delete_url }}" class="btn btn-danger">Delete</a>
+              </div>
+              {% endif %}
+            </div>
+
+            <div class="post-body">
+              {{ post.content|safe }}
+            </div>
+
+            <div class="post-comments">
+              <header>
+                <h3 class="h6">Post Comments<span class="no-of-comments">( {{post.comment.count}} )</span></h3>
+              </header>
+              {% for comment in post.comment.all %}
+              <div class="comment">
+                <div class="comment-header d-flex justify-content-between">
+                  <div class="user d-flex align-items-center">
+                    <div class="image"><img src="{{ comment.user.picture.url }}" alt="..."
+                        class="img-fluid rounded-circle"></div>
+                    <div class="title"><strong>{{ comment.user }}</strong><span
+                        class="date">{{ comment.timestamp|timesince }}</span></div>
+                  </div>
+                </div>
+                <div class="comment-body">
+                  <p> {{ comment.content|safe }}</p>
+                </div>
+              </div>
+              {% endfor %}
+              <div class="add-comment" id="add-comment" >
+                <header>
+                  <h3 class="h6">Leave a comment</h3>
+                </header>
+                {% if user.is_authenticated %}
+                <form action="{% url 'post_detail' post.slug %}" method="POST" class="commenting-form">
+                  {% csrf_token %}
+                  {{ comment_form|crispy }}
+                  <div class="form-group col-md-12">
+                    <button type="submit" class="btn btn-outline-secondary">Submit Comment</button>
+                  </div>
+                </form>
+                {% else %}
+                <a href="/admin/login?next={{ post.get_absolute_url }}#add-comment">Login</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+    </main>
+    <aside class="col-lg-4">
+      <!-- Widget [Search Bar Widget]-->
+      <div class="widget search">
+        <header>
+          <h3 class="h6">Search the blog</h3>
+        </header>
+        <form action="{% url 'search' %}" class="search-form">
+          <div class="form-group">
+            <input type="search" placeholder="What are you looking for?" name="q">
+            <button type="submit" class="submit"><i class="icon-search"></i></button>
+          </div>
+        </form>
+      </div>
+      <!-- Widget [Latest Posts Widget]        -->
+      <div class="widget latest-posts">
+        <header>
+          <h3 class="h6">Latest Posts</h3>
+        </header>
+        <div class="blog-posts">
+          {% for post in latest_posts %}
+          <a href="#">
+            <div class="item d-flex align-items-center">
+              <div class="image"><img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid"></div>
+              <div class="title"><strong>{{ post.title }}</strong>
+                <div class="d-flex align-items-center">
+                  <div class="views"><i class="icon-eye"></i> 500</div>
+                  <div class="comments"><i class="icon-comment"></i>{{ post.comment.count }}</div>
+                </div>
+              </div>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+      <!-- Widget [Categories Widget]-->
+      <div class="widget categories">
+        <header>
+          <h3 class="h6">Categories</h3>
+        </header>
+        {% for category in categories %}
+        <div class="item d-flex justify-content-between">
+          <a href="#">{{ category }}</a><span>{{ category.post.count }}</span>
+        </div>
+        {% endfor %}
+      </div>
+      <!-- Widget [Tags Cloud Widget]-->
+    </aside>
+  </div>
+</div>
+{% endblock content %}

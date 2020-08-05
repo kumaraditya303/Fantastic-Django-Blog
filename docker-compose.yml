@@ -1,0 +1,42 @@
+version: "3.4"
+
+services:
+  web:
+    image: fantastic-django-blog
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - celery
+      - celery-beat
+    env_file: .env
+
+  db:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: data
+
+  redis:
+    image: redis:6-alpine
+    restart: always
+
+  celery:
+    image: fantastic-django-blog
+    command: celery -A djangoblog worker -l info
+    restart: always
+    depends_on:
+      - redis
+    env_file: .env
+
+  celery-beat:
+    image: fantastic-django-blog
+    command: celery -A djangoblog beat -l info
+    restart: always
+    depends_on:
+      - redis
+    env_file: .env

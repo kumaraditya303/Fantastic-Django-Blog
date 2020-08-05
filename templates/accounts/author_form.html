@@ -1,0 +1,14 @@
+{% extends '../blog/layout.html' %}
+{% load static i18n crispy_forms_tags %}
+{% block content %}
+<div class="login-form">
+    <div class="jumbotron">
+        <h1 class="text-center">Register</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{form|crispy}}
+            <input type="submit" class="btn btn-block btn-primary" value="Register">
+        </form>
+    </div>
+</div>
+{% endblock %}
