@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/bin/python3"
+    "python.pythonPath": "/home/kumaraditya/.local/share/virtualenvs/Fantastic-Django-Blog-qsHLWwJC/bin/python",
+    "python.formatting.provider": "black"
 }
