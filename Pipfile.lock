@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "48b94025c93becbd9e0084bd5d05c401ed935d158a82fe9bd6c16878c03eb033"
+            "sha256": "015d8feb29949d323e8563d4d93c9b585a21236ec4025fc4f0b1573114587ad7"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -48,11 +48,11 @@
         },
         "botocore": {
             "hashes": [
-                "sha256:1132a09abb84018081e9ad74bf7aba3cc8f776c576db7ec52bf72dee40a7a962",
-                "sha256:7740b12a9a32e78ee32c31dd6882e70c7469259cddf7b2c1f41eabf7eacece6b"
+                "sha256:7c5c05ce8d785d442c93ee06694d03a9f6c34dca09bf48e6c13f6177261a6d36",
+                "sha256:82ef4a26cbc5a6197af43286b1895d220a8864c98c44f4c2e2f2e9bedecbce89"
             ],
             "index": "pypi",
-            "version": "==1.17.36"
+            "version": "==1.17.37"
         },
         "celery": {
             "hashes": [
