@@ -9,7 +9,7 @@ black = "*"
 [packages]
 asgiref = "==3.2.10"
 boto3 = "==1.14.28"
-botocore = "==1.17.36"
+botocore = "==1.17.40"
 django-crispy-forms = "==1.9.2"
 django-storages = "==1.9.1"
 django-tinymce = "==3.0.2"
