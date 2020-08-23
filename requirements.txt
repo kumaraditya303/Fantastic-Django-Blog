@@ -13,7 +13,7 @@ docutils==0.15.2
 future==0.18.2
 gunicorn==20.0.4
 jmespath==0.10.0
-kombu==4.6.11
+kombu==5.0.0
 pillow==7.2.0
 psycopg2-binary==2.8.5
 python-dateutil==2.8.1
