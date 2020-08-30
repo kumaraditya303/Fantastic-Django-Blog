@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/kumaraditya303/Fantastic-Django-Blog.svg?token=Tp128txvcHsePdipY3xq&branch=master)](https://travis-ci.com/kumaraditya303/Fantastic-Django-Blog)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=kumaraditya303/Fantastic-Django-Blog&identifier=280406434)](https://dependabot.com)
-
+[![HitCount](http://hits.dwyl.com/kumaraditya303/Fantastic-Django-Blog.svg)](http://hits.dwyl.com/kumaraditya303/Fantastic-Django-Blog)
 > Simple blog app made with 💖 in Django!
 
 ## Table of Content 🎉
