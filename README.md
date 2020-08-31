@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.com/kumaraditya303/Fantastic-Django-Blog.svg?token=Tp128txvcHsePdipY3xq&branch=master)](https://travis-ci.com/kumaraditya303/Fantastic-Django-Blog)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=kumaraditya303/Fantastic-Django-Blog&identifier=280406434)](https://dependabot.com)
-[![HitCount](http://hits.dwyl.com/kumaraditya303/Fantastic-Django-Blog.svg)](http://hits.dwyl.com/kumaraditya303/Fantastic-Django-Blog)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fkumaraditya303%2FFantastic-Django-Blog&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 > Simple blog app made with 💖 in Django!
 
 ## Table of Content 🎉
