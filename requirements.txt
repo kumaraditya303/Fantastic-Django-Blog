@@ -6,7 +6,7 @@ boto3==1.14.50
 botocore==1.17.51
 celery==4.4.6
 django-crispy-forms==1.9.2
-django-storages==1.9.1
+django-storages==1.10
 django-tinymce==3.0.2
 django==3.0.8
 docutils==0.15.2
