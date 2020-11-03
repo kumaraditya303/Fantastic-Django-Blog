@@ -4,7 +4,7 @@ asgiref==3.3.0
 billiard==3.6.3.0
 boto3==1.16.10
 botocore==1.19.10
-celery==5.0.1
+celery==5.0.2
 django-crispy-forms==1.9.2
 django-storages==1.10.1
 django-tinymce==3.1.0
