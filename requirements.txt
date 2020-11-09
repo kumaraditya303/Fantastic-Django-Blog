@@ -1,5 +1,5 @@
 -i https://pypi.org/simple/
-amqp==5.0.1
+amqp==5.0.2
 asgiref==3.3.0
 billiard==3.6.3.0
 boto3==1.16.12
