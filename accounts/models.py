@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from io import BytesIO
 
 from django.contrib.auth.models import User
@@ -12,10 +13,11 @@ class Author(models.Model):
     """
     Author Model
     """
-    user = models.OneToOneField(
-        User, verbose_name=_("User"), on_delete=models.CASCADE)
+
+    user = models.OneToOneField(User, verbose_name=_("User"), on_delete=models.CASCADE)
     picture = models.ImageField(
-        _("Picture"), upload_to='profile', default='default.jpg')
+        _("Picture"), upload_to="profile", blank=True, null=True
+    )
 
     class Meta:
         verbose_name = _("Author")
@@ -29,10 +31,11 @@ class Author(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        img = Image.open(default_storage.open(self.picture.name))
-        if img.height > 300 or img.width > 300:
-            output_size = (300, 300)
-            img.thumbnail(output_size)
-            buffer = BytesIO()
-            img.save(buffer, format='JPEG')
-            default_storage.save(self.picture.name, buffer)
+        if self.picture:
+            img = Image.open(default_storage.open(self.picture.name))
+            if img.height > 300 or img.width > 300:
+                output_size = (300, 300)
+                img.thumbnail(output_size)
+                buffer = BytesIO()
+                img.save(buffer, format="JPEG")
+                default_storage.save(self.picture.name, buffer)

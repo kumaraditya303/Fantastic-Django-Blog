@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from blog.models import Category, Comment, Post, Newsletter
+from blog.models import Category, Comment, Newsletter, Post
 
 # Register your models here.
 

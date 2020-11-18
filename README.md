@@ -33,7 +33,7 @@
 * Support for paginations!
 * Category wise pagination!
 * Categories with support of sorting them!
-* Support of storing static & media files on [AWS S3 bucket](https://aws.amazon.com/s3/)! 
+* Support of storing static & media files on [AWS S3 bucket](https://aws.amazon.com/s3/)!
 * Newsletter for the subscribers!
 * _And many many more to come!_
 
@@ -46,7 +46,7 @@ $ docker-compose up --build
 ```
 * Start the project locally!
 ```sh
-$ ./run.sh 
+$ ./run.sh
 ```
 
 * Goto http://localhost:8000/ and have fun!
@@ -61,7 +61,7 @@ $ ./run.sh
 
 > ### Use [Github issues](https://github.com/kumaraditya303/Fantastic-Django-Blog/issues) for reporting issues!
 
-## License 
+## License
 > [MIT](/LICENSE.md)
 
 ## To Everyone
