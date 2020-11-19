@@ -48,7 +48,6 @@ py==1.9.0
 pyee==8.1.0
 pyparsing==2.4.7
 pytest==6.1.2
-pytest-asyncio==0.14.0
 pytest-base-url==1.4.2
 pytest-cov==2.10.1
 pytest-django==4.1.0

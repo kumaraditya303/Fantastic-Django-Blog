@@ -4,7 +4,6 @@ from io import BytesIO
 from django.contrib.auth.models import User
 from django.core.files.storage import default_storage
 from django.db import models
-from django.shortcuts import reverse
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
 
@@ -26,12 +25,9 @@ class Author(models.Model):
     def __str__(self):
         return self.user.get_full_name()
 
-    def get_absolute_url(self):
-        return reverse("author_detail", kwargs={"pk": self.pk})
-
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        if self.picture:
+        if self.picture:  # pragma: no cover
             img = Image.open(default_storage.open(self.picture.name))
             if img.height > 300 or img.width > 300:
                 output_size = (300, 300)

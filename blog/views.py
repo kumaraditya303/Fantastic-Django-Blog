@@ -44,9 +44,6 @@ class PostDetailView(DetailView):
 
     Args:
         DetailView: Django Detail View
-
-    Returns:
-        [type]: [description]
     """
 
     model = Post
@@ -75,9 +72,6 @@ class PostListView(ListView):
 
     Args:
         ListView: Django List View
-
-    Returns:
-        context: context
     """
 
     model = Post

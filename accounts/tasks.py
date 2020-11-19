@@ -14,9 +14,7 @@ def send_newsletter():
     html = render_to_string(
         "blog/newsletter.html", context={"latest_post": latest_post, "posts": posts}
     )
-    print(emails)
-    print(Post.objects.all())
-    return send_mail(
+    send_mail(
         "Your daily Newsletter",
         message="Newsletter",
         recipient_list=emails,
