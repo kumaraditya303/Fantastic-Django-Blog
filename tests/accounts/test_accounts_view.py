@@ -1,97 +1,90 @@
 # -*- coding: utf-8 -*-
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from playwright import sync_playwright
+from django.contrib.auth.models import User
+from playwright.page import Page
+
+from accounts.models import Author
 
 
-class AccountsViewTestCase(StaticLiveServerTestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        super().setUpClass()
-        cls.playwright = sync_playwright().start()
-        cls.browser = cls.playwright.chromium.launch()
+def test_register(page: Page, live_server):
+    page.goto(f"{live_server.url}/accounts/login/")
+    page.click('text="Register"')
+    assert page.url == f"{live_server.url}/accounts/register/"
+    page.fill('input[name="username"]', "blah")
+    page.fill('input[name="first_name"]', "blah")
+    page.fill('input[name="last_name"]', "blah")
+    page.fill('input[name="email"]', "blah@blah.com")
+    page.fill('input[name="password1"]', "loremipsum123")
+    page.fill('input[name="password2"]', "loremipsum123")
+    page.click('input[type="submit"]')
+    assert page.url == f"{live_server.url}/accounts/login/"
+    assert User.objects.count() == 1
+    assert Author.objects.count() == 1
+    author = Author.objects.get(user__username="blah")
+    assert author.user.username == "blah"
+    assert author.user.email == "blah@blah.com"
+    assert author.user.is_active
+    assert not author.user.is_staff
+    assert not author.user.is_superuser
+    assert author.__str__() == author.user.get_full_name()
 
-    def setUp(self) -> None:
-        super().setUp()
-        self.page = self.browser.newPage()
 
-    def tearDown(self) -> None:
-        self.page.close()
-        super().tearDown()
+def test_login(page: Page, live_server):
+    page.goto(f"{live_server.url}/accounts/login/")
+    page.click('text="Register"')
+    assert page.url == f"{live_server.url}/accounts/register/"
+    page.fill('input[name="username"]', "blah")
+    page.fill('input[name="first_name"]', "blah")
+    page.fill('input[name="last_name"]', "blah")
+    page.fill('input[name="email"]', "blah@blah.com")
+    page.fill('input[name="password1"]', "loremipsum123")
+    page.fill('input[name="password2"]', "loremipsum123")
+    page.click('input[type="submit"]')
+    assert page.url == f"{live_server.url}/accounts/login/"
+    page.fill('input[name="username"]', "blah")
+    page.fill('input[name="password"]', "loremipsum123")
+    page.click('input[type="submit"]')
+    assert page.url == f"{live_server.url}/"
 
-    @classmethod
-    def tearDownClass(cls) -> None:
-        cls.browser.close()
-        cls.playwright.stop()
-        super().tearDownClass()
 
-    def test_register(self) -> None:
-        self.page.goto(f"{self.live_server_url}/accounts/login/")
-        self.page.click('text="Register"')
-        assert self.page.url == f"{self.live_server_url}/accounts/register/"
-        self.page.fill('input[name="username"]', "blah")
-        self.page.fill('input[name="first_name"]', "blah")
-        self.page.fill('input[name="last_name"]', "blah")
-        self.page.fill('input[name="email"]', "blah@blah.com")
-        self.page.fill('input[name="password1"]', "loremipsum123")
-        self.page.fill('input[name="password2"]', "loremipsum123")
-        self.page.click('input[type="submit"]')
-        assert self.page.url == f"{self.live_server_url}/accounts/login/"
+def test_logout(page: Page, live_server) -> None:
+    page.goto(f"{live_server.url}/accounts/login/")
+    page.click('text="Register"')
+    assert page.url == f"{live_server.url}/accounts/register/"
+    page.fill('input[name="username"]', "blah")
+    page.fill('input[name="first_name"]', "blah")
+    page.fill('input[name="last_name"]', "blah")
+    page.fill('input[name="email"]', "blah@blah.com")
+    page.fill('input[name="password1"]', "loremipsum123")
+    page.fill('input[name="password2"]', "loremipsum123")
+    page.click('input[type="submit"]')
+    assert page.url == f"{live_server.url}/accounts/login/"
+    page.fill('input[name="username"]', "blah")
+    page.fill('input[name="password"]', "loremipsum123")
+    page.click('input[type="submit"]')
+    assert page.url == f"{live_server.url}/"
+    page.click('text="Logout"')
+    assert page.url == f"{live_server.url}/accounts/logout/"
 
-    def test_login(self) -> None:
-        self.page.goto(f"{self.live_server_url}/accounts/login/")
-        self.page.click('text="Register"')
-        assert self.page.url == f"{self.live_server_url}/accounts/register/"
-        self.page.fill('input[name="username"]', "blah")
-        self.page.fill('input[name="first_name"]', "blah")
-        self.page.fill('input[name="last_name"]', "blah")
-        self.page.fill('input[name="email"]', "blah@blah.com")
-        self.page.fill('input[name="password1"]', "loremipsum123")
-        self.page.fill('input[name="password2"]', "loremipsum123")
-        self.page.click('input[type="submit"]')
-        assert self.page.url == f"{self.live_server_url}/accounts/login/"
-        self.page.fill('input[name="username"]', "blah")
-        self.page.fill('input[name="password"]', "loremipsum123")
-        self.page.click('input[type="submit"]')
-        assert self.page.url == f"{self.live_server_url}/"
 
-    def test_logout(self) -> None:
-        self.page.goto(f"{self.live_server_url}/accounts/login/")
-        self.page.click('text="Register"')
-        assert self.page.url == f"{self.live_server_url}/accounts/register/"
-        self.page.fill('input[name="username"]', "blah")
-        self.page.fill('input[name="first_name"]', "blah")
-        self.page.fill('input[name="last_name"]', "blah")
-        self.page.fill('input[name="email"]', "blah@blah.com")
-        self.page.fill('input[name="password1"]', "loremipsum123")
-        self.page.fill('input[name="password2"]', "loremipsum123")
-        self.page.click('input[type="submit"]')
-        assert self.page.url == f"{self.live_server_url}/accounts/login/"
-        self.page.fill('input[name="username"]', "blah")
-        self.page.fill('input[name="password"]', "loremipsum123")
-        self.page.click('input[type="submit"]')
-        assert self.page.url == f"{self.live_server_url}/"
-        self.page.click('text="Logout"')
-        assert self.page.url == f"{self.live_server_url}/accounts/logout/"
-
-    def test_account_update(self) -> None:
-        self.page.goto(f"{self.live_server_url}/accounts/login/")
-        self.page.click('text="Register"')
-        assert self.page.url == f"{self.live_server_url}/accounts/register/"
-        self.page.fill('input[name="username"]', "blah")
-        self.page.fill('input[name="first_name"]', "blah")
-        self.page.fill('input[name="last_name"]', "blah")
-        self.page.fill('input[name="email"]', "blah@blah.com")
-        self.page.fill('input[name="password1"]', "loremipsum123")
-        self.page.fill('input[name="password2"]', "loremipsum123")
-        self.page.click('input[type="submit"]')
-        assert self.page.url == f"{self.live_server_url}/accounts/login/"
-        self.page.fill('input[name="username"]', "blah")
-        self.page.fill('input[name="password"]', "loremipsum123")
-        self.page.click('input[type="submit"]')
-        assert self.page.url == f"{self.live_server_url}/"
-        self.page.click('text="Profile"')
-        assert self.page.url == f"{self.live_server_url}/accounts/profile/"
-        self.page.fill('input[name="first_name"]', "test1")
-        self.page.fill('input[name="last_name"]', "user1")
-        self.page.click('input[type="submit"]')
-        assert self.page.url == f"{self.live_server_url}/accounts/profile/"
+def test_account_update(page: Page, live_server):
+    page.goto(f"{live_server.url}/accounts/login/")
+    page.click('text="Register"')
+    assert page.url == f"{live_server.url}/accounts/register/"
+    page.fill('input[name="username"]', "blah")
+    page.fill('input[name="first_name"]', "blah")
+    page.fill('input[name="last_name"]', "blah")
+    page.fill('input[name="email"]', "blah@blah.com")
+    page.fill('input[name="password1"]', "loremipsum123")
+    page.fill('input[name="password2"]', "loremipsum123")
+    page.click('input[type="submit"]')
+    assert page.url == f"{live_server.url}/accounts/login/"
+    page.fill('input[name="username"]', "blah")
+    page.fill('input[name="password"]', "loremipsum123")
+    page.click('input[type="submit"]')
+    assert page.url == f"{live_server.url}/"
+    page.click('text="Profile"')
+    assert page.url == f"{live_server.url}/accounts/profile/"
+    page.fill('input[name="first_name"]', "test1")
+    page.fill('input[name="last_name"]', "user1")
+    page.click('input[type="submit"]')
+    assert page.url == f"{live_server.url}/accounts/profile/"

@@ -17,7 +17,9 @@
                 {% endfor %}
               </div>
             </div>
-            <h1>{{ post.title }}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
+            <h1 id="post-title" >{{ post.title }}<a href="#"><i class="fa fa-bookmark-o"></i></a>
+
+            </h1>
             <div class="post-footer d-flex align-items-center flex-column flex-sm-row"><a href="#"
                 class="author d-flex align-items-center flex-wrap">
                 <div class="avatar"><img src="{{ post.author.picture.url }}" alt="..." class="img-fluid"></div>
@@ -27,6 +29,10 @@
                 <div class="date"><i class="icon-clock"></i>{{ post.timestamp|timesince }}</div>
                 <div class="views"><i class="icon-eye"></i> 500</div>
                 <div class="comments meta-last"><i class="icon-comment"></i>{{ post.comment.count }}</div>
+              </div>
+              <div class="flex-end">
+                <a href="{{ post.get_update_url }}" class="badge badge-xl badge-secondary">Update</a>
+                <a href="{{ post.get_delete_url }}" class="badge badge-xl badge-danger">Delete</a>
               </div>
             </div>
 

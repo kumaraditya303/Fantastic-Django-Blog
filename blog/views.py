@@ -114,7 +114,7 @@ class PostUpdateView(UpdateView):
     def form_valid(self, form):
         if form.instance.author == self.request.user.author:
             form.save()
-            return redirect(reverse("post_detail", kwargs={"pk": form.instance.pk}))
+            return redirect(reverse("post_detail", kwargs={"slug": form.instance.slug}))
         return Http404()
 
 
