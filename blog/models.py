@@ -39,7 +39,7 @@ class Post(models.Model):
     overview = models.TextField(_("Overview"), default="")
     timestamp = models.DateTimeField(_("Timestamp"), auto_now=True)
 
-    content = HTMLField()
+    content = HTMLField(default="<p>Hello World</p>")
     featured = models.BooleanField(_("Featured"), default=False)
     category = models.ManyToManyField(
         Category, verbose_name=_("Category"), related_name="post"
@@ -48,7 +48,7 @@ class Post(models.Model):
         Author, verbose_name=_("Author"), on_delete=models.CASCADE
     )
     thumbnail = models.ImageField(
-        _("Thumbnail"), upload_to="posts_thumbnail", blank=True, null=True
+        _("Thumbnail"), upload_to="thumbnail", default="testing.jpeg", blank=True
     )
     slug = models.SlugField(_("Slug"), blank=True, null=True)
 

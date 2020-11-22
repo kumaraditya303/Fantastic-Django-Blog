@@ -15,7 +15,7 @@ class Author(models.Model):
 
     user = models.OneToOneField(User, verbose_name=_("User"), on_delete=models.CASCADE)
     picture = models.ImageField(
-        _("Picture"), upload_to="profile", blank=True, null=True
+        _("Picture"), upload_to="thumbnail", default="testing.jpeg", blank=True
     )
 
     class Meta:
