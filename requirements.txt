@@ -41,7 +41,7 @@ pathspec==0.8.1
 Pillow==8.0.1
 playwright==0.162.1
 pluggy==0.13.1
-pre-commit==2.8.2
+pre-commit==2.9.0
 prompt-toolkit==3.0.8
 psycopg2-binary==2.8.6
 py==1.9.0
