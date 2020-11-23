@@ -28,7 +28,7 @@ filelock==3.0.12
 future==0.18.2
 greenlet==0.4.17
 gunicorn==20.0.4
-identify==1.5.9
+identify==1.5.10
 idna==2.10
 iniconfig==1.1.1
 jmespath==0.10.0
