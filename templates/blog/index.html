@@ -128,7 +128,7 @@
             <div class="form-group">
               {% csrf_token %}
               <input type="email" name="email" id="email" placeholder="Type your email address" minlength="8">
-              <button type="submit" class="submit">Subscribe</button>
+              <input type="submit" class="submit" value="Subscribe" >
             </div>
           </form>
           {% if messages %}

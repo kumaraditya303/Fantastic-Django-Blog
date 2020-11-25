@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-
-# Create your views here.
 from django.views.generic import CreateView, View
 
 from accounts.forms import AuthorForm, UserForm, UserUpdateForm

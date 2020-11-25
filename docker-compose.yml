@@ -8,14 +8,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
-    volumes:
-      - .:/app
     depends_on:
       - db
       - celery
       - celery-beat
     env_file: .env
-
 
   db:
     image: postgres:12-alpine

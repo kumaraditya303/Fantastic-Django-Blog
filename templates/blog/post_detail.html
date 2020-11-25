@@ -59,7 +59,7 @@
                 </div>
               </div>
               {% endfor %}
-              <div class="add-comment">
+              <div class="add-comment" id="add-comment" >
                 <header>
                   <h3 class="h6">Leave a comment</h3>
                 </header>
@@ -72,7 +72,7 @@
                   </div>
                 </form>
                 {% else %}
-                <a href="/admin/login?next={{ post.get_absolute_url }}">Login</a>
+                <a href="/admin/login?next={{ post.get_absolute_url }}#add-comment">Login</a>
                 {% endif %}
               </div>
             </div>

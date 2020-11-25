@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
 from django.db.models import Q
-from django.shortcuts import Http404, redirect, render, reverse
+from django.shortcuts import redirect, render, reverse
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -18,12 +18,6 @@ from blog.models import Category, Newsletter, Post
 
 
 class IndexView(View):
-    """Index view, displays home page with the latest posts
-
-    Args:
-        View: [Django View]
-    """
-
     def get(self, request, *args, **kwargs):
         featured_posts = Post.objects.filter(featured=True)[0:3]
         latest_posts = Post.objects.order_by("-timestamp")[0:3]
@@ -40,11 +34,6 @@ class IndexView(View):
 
 
 class PostDetailView(DetailView):
-    """Post Detail view, displays post details
-
-    Args:
-        DetailView: Django Detail View
-    """
 
     model = Post
     template_name = "blog/post_detail.html"
@@ -68,11 +57,6 @@ class PostDetailView(DetailView):
 
 
 class PostListView(ListView):
-    """Post List View, displays posts as a list with pagination
-
-    Args:
-        ListView: Django List View
-    """
 
     model = Post
     template_name = "blog/post_list.html"
@@ -115,7 +99,6 @@ class PostUpdateView(UpdateView):
         if form.instance.author == self.request.user.author:
             form.save()
             return redirect(reverse("post_detail", kwargs={"slug": form.instance.slug}))
-        return Http404()
 
 
 class PostDeleteView(DeleteView):

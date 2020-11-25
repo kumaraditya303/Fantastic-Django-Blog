@@ -9,9 +9,6 @@ from PIL import Image
 
 
 class Author(models.Model):
-    """
-    Author Model
-    """
 
     user = models.OneToOneField(User, verbose_name=_("User"), on_delete=models.CASCADE)
     picture = models.ImageField(

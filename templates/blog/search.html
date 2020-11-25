@@ -4,7 +4,7 @@
 <section class="latest-posts">
     <div class="container">
         <header>
-            <h2>Search results are ...</h2>
+            <h2 id="search-result">Search results are ...</h2>
         </header>
         <div class="row">
             {% for post in search_result %}
@@ -19,7 +19,7 @@
                             <a href="#">{{ category }}</a>
                             {% endfor %}</div>
                     </div><a href="{{ post.get_absolute_url }}">
-                        <h3 class="h4">{{ post.title }}</h3>
+                        <h3 class="h4" id="post-title" >{{ post.title }}</h3>
                     </a>
                     <p class="text-muted">{{ post.overview|linebreaks|truncatewords:50 }}</p>
                 </div>

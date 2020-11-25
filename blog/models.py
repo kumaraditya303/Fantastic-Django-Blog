@@ -13,9 +13,6 @@ from accounts.models import Author
 
 
 class Category(models.Model):
-    """
-    Category Model
-    """
 
     title = models.CharField(_("Title"), max_length=50)
 
@@ -26,14 +23,8 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
-        return reverse("category_detail", kwargs={"pk": self.pk})
-
 
 class Post(models.Model):
-    """
-    Post Model
-    """
 
     title = models.CharField(_("Title"), max_length=100)
     overview = models.TextField(_("Overview"), default="")
@@ -76,7 +67,7 @@ class Post(models.Model):
         super().save(*args, **kwargs)
         if self.thumbnail:
             img = Image.open(default_storage.open(self.thumbnail.name))
-            if img.height > 1080 or img.width > 1920:
+            if img.height > 1080 or img.width > 1920:  # pragma:no cover
                 output_size = (1920, 1080)
                 img.thumbnail(output_size)
                 buffer = BytesIO()
@@ -85,9 +76,6 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    """
-    Comment Model
-    """
 
     user = models.ForeignKey(Author, verbose_name=_("user"), on_delete=models.CASCADE)
     timestamp = models.DateTimeField(_("Timestamp"), auto_now=True)
@@ -103,14 +91,8 @@ class Comment(models.Model):
     def __str__(self):
         return self.user.user.username
 
-    def get_absolute_url(self):
-        return reverse("comment_detail", kwargs={"pk": self.pk})
-
 
 class Newsletter(models.Model):
-    """
-    Newsletter Model
-    """
 
     email = models.EmailField(_("Email"), max_length=254)
     timestamp = models.DateTimeField(_("Timestamp"), auto_now=True)
@@ -121,6 +103,3 @@ class Newsletter(models.Model):
 
     def __str__(self):
         return self.email
-
-    def get_absolute_url(self):
-        return reverse("newsletter_detail", kwargs={"pk": self.pk})
