@@ -30,10 +30,12 @@
                 <div class="views"><i class="icon-eye"></i> 500</div>
                 <div class="comments meta-last"><i class="icon-comment"></i>{{ post.comment.count }}</div>
               </div>
-              <div class="flex-end">
-                <a href="{{ post.get_update_url }}" class="badge badge-xl badge-secondary">Update</a>
-                <a href="{{ post.get_delete_url }}" class="badge badge-xl badge-danger">Delete</a>
+              {% if request.user.author == post.author %}
+              <div class="ml-5 d-flex flex-end">
+                <a href="{{ post.get_update_url }}" class="btn btn-secondary">Update</a>
+                <a href="{{ post.get_delete_url }}" class="btn btn-danger">Delete</a>
               </div>
+              {% endif %}
             </div>
 
             <div class="post-body">
