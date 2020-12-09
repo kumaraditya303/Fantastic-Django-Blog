@@ -1,4 +1,4 @@
-celery==5.0.3
+celery==5.0.4
 coverage==5.3
 Django==3.1.4
 django-crispy-forms==1.10.0
