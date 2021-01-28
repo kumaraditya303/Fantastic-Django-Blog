@@ -9,7 +9,7 @@ Pillow==8.1.0
 playwright==0.162.2
 pre-commit==2.10.0
 psycopg2-binary==2.8.6
-pytest==6.2.1
+pytest==6.2.2
 pytest-cov==2.11.1
 pytest-django==4.1.0
 pytest-playwright==0.0.9
