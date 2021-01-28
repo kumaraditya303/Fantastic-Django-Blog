@@ -7,7 +7,7 @@ django-tinymce==3.2.0
 gunicorn==20.0.4
 Pillow==8.1.0
 playwright==0.162.2
-pre-commit==2.9.3
+pre-commit==2.10.0
 psycopg2-binary==2.8.6
 pytest==6.2.1
 pytest-cov==2.11.0
