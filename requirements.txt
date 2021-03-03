@@ -12,6 +12,6 @@ psycopg2-binary==2.8.6
 pytest==6.2.2
 pytest-cov==2.11.1
 pytest-django==4.1.0
-pytest-playwright==0.0.9
+pytest-playwright==0.0.12
 pytest-xdist==2.2.1
 redis==3.5.3
