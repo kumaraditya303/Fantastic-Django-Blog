@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from playwright.page import Page
+from playwright.sync_api import Page
 
 from blog.models import Comment, Newsletter
 
@@ -11,9 +11,9 @@ def test_create_post(page: Page, live_server):
     page.fill('input[name="title"]', "testing")
     page.fill('textarea[name="overview"]', "testing lorem ipsum")
     page.click("div.tox-edit-area")
-    page.keyboard.insertText("Hello World")
+    page.keyboard.insert_text("Hello World")
     page.check('input[name="featured"]')
-    page.selectOption('select[name="category"]', {"label": "Test"})
+    page.select_option('select[name="category"]', label="Test")
     page.click('input[type="submit"]')
     assert page.url == f"{live_server.url}/post/testing/"
 
@@ -24,16 +24,16 @@ def test_update_post(page: Page, live_server):
     page.fill('input[name="title"]', "testing")
     page.fill('textarea[name="overview"]', "testing lorem ipsum")
     page.click("div.tox-edit-area")
-    page.keyboard.insertText("Hello World")
+    page.keyboard.insert_text("Hello World")
     page.check('input[name="featured"]')
-    page.selectOption('select[name="category"]', {"label": "Test"})
+    page.select_option('select[name="category"]', label="Test")
     page.click('input[type="submit"]')
     assert page.url == f"{live_server.url}/post/testing/"
     page.click("text=Update")
     page.fill('input[name="title"]', "testing2")
     page.click('input[type="submit"]')
     assert page.url == f"{live_server.url}/post/testing2/"
-    assert "testing2" in page.textContent("#post-title")
+    assert "testing2" in page.text_content("#post-title")
 
 
 def test_delete_post(page: Page, live_server):
@@ -42,9 +42,9 @@ def test_delete_post(page: Page, live_server):
     page.fill('input[name="title"]', "testing")
     page.fill('textarea[name="overview"]', "testing lorem ipsum")
     page.click("div.tox-edit-area")
-    page.keyboard.insertText("Hello World")
+    page.keyboard.insert_text("Hello World")
     page.check('input[name="featured"]')
-    page.selectOption('select[name="category"]', {"label": "Test"})
+    page.select_option('select[name="category"]', label="Test")
     page.click('input[type="submit"]')
     assert page.url == f"{live_server.url}/post/testing/"
     page.click("text=Delete")
@@ -55,7 +55,7 @@ def test_delete_post(page: Page, live_server):
 def test_newsletter(page: Page):
     page.fill('input[name="email"]', "test@test.com")
     page.click('input[type="submit"]')
-    assert "Successfully subscribed!" in page.textContent('[role="alert"]')
+    assert "Successfully subscribed!" in page.text_content('[role="alert"]')
     assert Newsletter.objects.count() == 2
     newsletter = Newsletter.objects.filter(email="test@test.com").first()
     assert newsletter.email == "test@test.com"
@@ -68,9 +68,9 @@ def test_post_list(page: Page, live_server):
     page.fill('input[name="title"]', "testing")
     page.fill('textarea[name="overview"]', "testing lorem ipsum")
     page.click("div.tox-edit-area")
-    page.keyboard.insertText("Hello World")
+    page.keyboard.insert_text("Hello World")
     page.check('input[name="featured"]')
-    page.selectOption('select[name="category"]', {"label": "Test"})
+    page.select_option('select[name="category"]', label="Test")
     page.click('input[type="submit"]')
     assert page.url == f"{live_server.url}/post/testing/"
     page.goto(f"{live_server.url}/post")
@@ -83,14 +83,14 @@ def test_search(page: Page, live_server):
     page.fill('input[name="title"]', "testing")
     page.fill('textarea[name="overview"]', "testing lorem ipsum")
     page.click("div.tox-edit-area")
-    page.keyboard.insertText("Hello World")
+    page.keyboard.insert_text("Hello World")
     page.check('input[name="featured"]')
-    page.selectOption('select[name="category"]', {"label": "Test"})
+    page.select_option('select[name="category"]', label="Test")
     page.click('input[type="submit"]')
     assert page.url == f"{live_server.url}/post/testing/"
     page.goto(f"{live_server.url}/search/?q=testing")
-    assert "Search results are ..." in page.textContent("#search-result")
-    assert "testing" in page.textContent("#post-title")
+    assert "Search results are ..." in page.text_content("#search-result")
+    assert "testing" in page.text_content("#post-title")
 
 
 def test_comment(page: Page, live_server):
@@ -99,9 +99,9 @@ def test_comment(page: Page, live_server):
     page.fill('input[name="title"]', "testing")
     page.fill('textarea[name="overview"]', "testing lorem ipsum")
     page.click("div.tox-edit-area")
-    page.keyboard.insertText("Hello World")
+    page.keyboard.insert_text("Hello World")
     page.check('input[name="featured"]')
-    page.selectOption('select[name="category"]', {"label": "Test"})
+    page.select_option('select[name="category"]', label="Test")
     page.click('input[type="submit"]')
     assert page.url == f"{live_server.url}/post/testing/"
     page.fill('textarea[name="content"]', "Test Comment")

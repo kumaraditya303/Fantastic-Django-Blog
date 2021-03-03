@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import pytest
-from playwright.page import Page
+from playwright.sync_api import Page
 
 from blog.models import Category
 

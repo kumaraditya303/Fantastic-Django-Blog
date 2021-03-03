@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
-from playwright.page import Page
+from playwright.sync_api import Page
 
 from accounts.models import Author
 
