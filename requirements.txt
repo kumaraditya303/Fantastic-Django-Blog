@@ -6,7 +6,7 @@ django-storages==1.11.1
 django-tinymce==3.3.0
 gunicorn==20.1.0
 Pillow==8.2.0
-playwright==1.10.0
+playwright==1.11.0
 pre-commit==2.12.1
 psycopg2-binary==2.8.6
 pytest==6.2.3
