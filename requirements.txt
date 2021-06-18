@@ -8,7 +8,7 @@ gunicorn==20.1.0
 Pillow==8.2.0
 playwright==1.11.2
 pre-commit==2.13.0
-psycopg2-binary==2.8.6
+psycopg2-binary==2.9.1
 pytest==6.2.4
 pytest-cov==2.12.0
 pytest-django==4.3.0
