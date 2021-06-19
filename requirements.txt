@@ -13,5 +13,5 @@ pytest==6.2.4
 pytest-cov==2.12.1
 pytest-django==4.3.0
 pytest-playwright==0.1.1
-pytest-xdist==2.2.1
+pytest-xdist==2.3.0
 redis==3.5.3
