@@ -1,6 +1,6 @@
 celery==5.1.2
 coverage==5.5
-Django==3.2.6
+Django==4.0.1
 django-crispy-forms==1.12.0
 django-storages==1.11.1
 django-tinymce==3.3.0
